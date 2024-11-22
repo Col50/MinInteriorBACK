@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
-dotenv.config({path: path.join(__dirname, "../../.env")});
+dotenv.config({path: path.join(__dirname, "../.env")});
 import {DataSource} from "typeorm";
-import {ExpenseNotification} from "../models/ExpenseNotification";
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as any,
@@ -11,9 +10,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_PROFILE as any,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   logging: false,
-  entities: [ExpenseNotification],
+  entities: ["src/entities/**/*.ts"],
+  migrations: ["src/migrations/**/*.ts"],
   subscribers: [],
-  migrations: [],
 });
