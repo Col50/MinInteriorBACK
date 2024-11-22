@@ -1,13 +1,21 @@
 // src/index.ts
 import "reflect-metadata";
-import express from "express";
-import { AppDataSource } from "./database/data-source";
+import * as dotenv from "dotenv";
+import * as path from "path";
+dotenv.config({path: path.join(__dirname, "/../.env")});
+import {AppDataSource} from "./database/data-source";
 import expenseNotificationRoutes from "./routes/expenseNotificationRoutes";
 
+import express from "express";
 const app = express();
+
+// Middlewares
+app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+// Routes
 app.use("/api", expenseNotificationRoutes);
 
 AppDataSource.initialize()

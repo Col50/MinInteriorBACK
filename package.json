@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --watch --inspect=0.0.0.0:9229 --require ts-node/register src/index.ts",
+    "build": "tsc",
+    "db:migrate": "typeorm-ts-node-commonjs migration:run -d ./src/dataSource.ts ",
+    "db:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/dataSource.ts",
+    "db:drop": "typeorm-ts-node-commonjs schema:drop -d ./src/dataSource.ts",
+    "db:seed": "typeorm-ts-node-commonjs migration:run -d ./src/seedDataSource.ts ",
+    "db:seed:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/seedDataSource.ts"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +17,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.1",
+    "mysql2": "^3.11.4",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2",
