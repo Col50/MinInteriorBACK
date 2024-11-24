@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateTableConfiguration1732307009733 implements MigrationInterface {
+export class CreateTableNotificationConfiguration1732307009733 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            CREATE TABLE notification (
+            CREATE TABLE notificationConfig (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 userId INT NOT NULL,
                 jsonData JSON NOT NULL
@@ -13,7 +13,7 @@ export class CreateTableConfiguration1732307009733 implements MigrationInterface
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-    DROP TABLE notification
+    DROP TABLE notificationConfig
   `);
   }
 }
