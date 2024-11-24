@@ -1,34 +1,36 @@
-import {AppDataSource} from "../dataSource";
-import {Notification} from "../entities/notification";
+import { AppDataSource } from "../dataSource";
+import { Notification } from "../entities/notification";
 
-export class ExpenseNotificationService {
-  private DATA_SOURCE = AppDataSource.getRepository(Notification);
+export class NotificationConfigService {
+  private dataSource = AppDataSource.getRepository(Notification);
 
   public async getAll(): Promise<Notification[]> {
-    return await this.DATA_SOURCE.find();
+    return await this.dataSource.find();
   }
 
-  public async getOne(id: number): Promise<Notification | null> {
-    return await this.DATA_SOURCE.findOneBy({id});
+  public async getById(id: number): Promise<Notification | null> {
+    return await this.dataSource.findOneBy({ id });
   }
 
-  public async create(data: Partial<Notification>): Promise<void> {
-    const notification = this.DATA_SOURCE.create(data);
-    await this.DATA_SOURCE.save(notification);
+  public async create(notificationConfigToCreate: Partial<Notification>): Promise<void> {
+    const notificationConfig = this.dataSource.create(notificationConfigToCreate);
+    await this.dataSource.save(notificationConfig);
   }
 
-  public async update(
-    id: number,
-    data: Partial<Notification>
-  ): Promise<Notification | null> {
-    const notification = await this.getOne(id);
-    if (!notification) return null;
-    Object.assign(notification, data);
-    return await this.DATA_SOURCE.save(notification);
+  public async update(notificationConfigToUpdate: Partial<Notification>): Promise<Notification | null> {
+    if (!notificationConfigToUpdate.id) {
+      return null;
+    }
+    const notificationConfig = await this.getById(notificationConfigToUpdate.id);
+    if (!notificationConfig) {
+      return null;
+    }
+    Object.assign(notificationConfig, notificationConfigToUpdate);
+    return await this.dataSource.save(notificationConfig);
   }
 
   public async delete(id: number): Promise<boolean> {
-    const result = await this.DATA_SOURCE.delete(id);
-    return result.affected !== 0;
+    const deletionResult = await this.dataSource.delete(id);
+    return deletionResult.affected !== 0;
   }
 }

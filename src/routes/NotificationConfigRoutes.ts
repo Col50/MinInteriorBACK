@@ -1,13 +1,12 @@
 // src/routes/expenseNotificationRoutes.ts
-import {Router} from "express";
-import {ExpenseNotificationController} from "../controllers/NotificationConfigController";
+import { Router } from "express";
+import { NotificationConfigController } from "../controllers/NotificationConfigController";
 
-export const notificationRouter = Router();
-const controller = new ExpenseNotificationController();
+const controller = new NotificationConfigController();
 
-// Define las rutas
-notificationRouter.get("/", controller.getAll);
-notificationRouter.get("/:id", controller.getOne);
-notificationRouter.post("/", controller.create);
-notificationRouter.put("/:id", controller.update);
-notificationRouter.delete("/:id", controller.delete);
+export const notificationConfigRouter = Router();
+notificationConfigRouter.get("/", controller.getAll);
+notificationConfigRouter.get("/:id", controller.getOne);
+notificationConfigRouter.post("/", controller.create);
+notificationConfigRouter.put("/:id", controller.update);
+notificationConfigRouter.delete("/:id", controller.delete);

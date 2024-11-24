@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
-dotenv.config({path: path.join(__dirname, "../.env")});
-import {DataSource} from "typeorm";
+dotenv.config({ path: path.join(__dirname, "../.env") });
+import { DataSource } from "typeorm";
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as any,

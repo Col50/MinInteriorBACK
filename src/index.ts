@@ -2,9 +2,9 @@
 import "reflect-metadata";
 import * as dotenv from "dotenv";
 import * as path from "path";
-dotenv.config({path: path.join(__dirname, "../.env")});
-import {AppDataSource} from "./dataSource";
-import {appRouter} from "./routes";
+dotenv.config({ path: path.join(__dirname, "../.env") });
+import { AppDataSource } from "./dataSource";
+import { appRouter } from "./routes";
 
 import express from "express";
 const cors = require("cors");
